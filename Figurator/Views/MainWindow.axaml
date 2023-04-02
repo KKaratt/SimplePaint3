@@ -1,0 +1,102 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Figurator.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:views="clrnamespace:Figurator.Views;assembly=Figurator"
+        mc:Ignorable="d" d:DesignWidth="1850" d:DesignHeight="950"
+		Width="1850" Height="950"
+        x:Class="Figurator.Views.MainWindow"
+        Icon="/Assets/kedi.ico"
+        Title="Graphic_editor">
+
+	<Window.Styles>
+		<Style Selector="Border.b">
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="2"/>
+		</Style>
+		<Style Selector="Grid.grid Button">
+			<Setter Property="Width" Value="230"/>
+			<Setter Property="Height" Value="35"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="20"/>
+		</Style>
+		<Style Selector="Grid.grid ComboBox">
+			<Setter Property="Height" Value="30"/>
+			<Setter Property="VerticalContentAlignment" Value="Bottom"/>
+		</Style>
+		<Style Selector="Grid.gr TextBox">
+			<Setter Property="Margin" Value="8"/>
+			<Setter Property="Background" Value="#dfff"/>
+		</Style>
+		<Style Selector="Grid.gr ComboBox">
+			<Setter Property="Margin" Value="8"/>
+		</Style>
+		<Style Selector="Grid.gr NumericUpDown">
+			<Setter Property="Margin" Value="8"/>
+		</Style>
+		<Style Selector="Grid.gr TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+
+		<StyleInclude Source="/Styles/Animation.axaml"/>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Padding" Value="5 1"/>
+			<Setter Property="Cursor" Value="Hand"/>
+		</Style>
+	</Window.Styles>
+
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="Экспортировать" Name="menuExport">
+				<MenuItem Header="Экспортировать в PNG" Command="{Binding Export}" CommandParameter="PNG"/>
+				<MenuItem Header="Экспортировать в JSON" Command="{Binding Export}" CommandParameter="JSON"/>
+				<MenuItem Header="Экспортировать в XML" Command="{Binding Export}" CommandParameter="XML"/>
+			</MenuItem>
+			<MenuItem Header="Импортировать" Name="menuImport">
+				<MenuItem Header="Импортировать из JSON" Command="{Binding Import}" CommandParameter="JSON"/>
+				<MenuItem Header="Импортировать из XML" Command="{Binding Import}" CommandParameter="XML"/>
+			</MenuItem>
+		</Menu>
+		<Grid ColumnDefinitions="2*,5*,*">
+			<Border Classes="b">
+				<Grid RowDefinitions="*,30*,30*,*" ColumnDefinitions="*,*" Classes="grid">
+					<ComboBox Name="comboBoxShape" SelectedIndex="{Binding SelectedShaper}" Width="460" Grid.ColumnSpan="2">
+						<ComboBoxItem>Прямая линия</ComboBoxItem>
+						<ComboBoxItem>Ломанная линия</ComboBoxItem>
+						<ComboBoxItem>Многоугольник</ComboBoxItem>
+						<ComboBoxItem>Прямоугольник</ComboBoxItem>
+						<ComboBoxItem>Эллипс</ComboBoxItem>
+						<ComboBoxItem>Составная фигура</ComboBoxItem>
+					</ComboBox>
+					<ContentControl Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding Content}"/>
+					<ContentControl Grid.Row="2" Grid.ColumnSpan="2" Content="{Binding SharedContent}"/>
+					<Button Name="buttonAdd" Command="{Binding Add}" Background="{Binding AddColor}" Grid.Row="3" VerticalAlignment="Bottom">Добавить</Button>
+					<Button Name="buttonClear" Command="{Binding Clear}" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom">Сброс</Button>
+				</Grid>
+			</Border>
+			<Border Grid.Column="1" Classes="b">
+				<Panel Background="AliceBlue">
+					<TextBlock Text="{Binding Logg}" IsVisible="{Binding ServiceVisible}"/>
+					<Canvas Name="canvas" Cursor="Hand"/>
+				</Panel>
+			</Border>
+			<Border Grid.Column="2" Classes="b">
+				<ListBox Name="listBoxShapes" Items="{Binding Shapes}" SelectedItem="{Binding SelectedShape}">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid ColumnDefinitions="5*,*">
+								<TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+								<Button Grid.Column="1" HorizontalAlignment="Right" Padding="0" Command="{Binding Remove}">
+									<Image Width="32" Height="32" Source="/Assets/Trash.png"/>
+								</Button>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Border>
+		</Grid>
+	</DockPanel>
+	
+</Window>

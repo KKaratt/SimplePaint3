@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="460" d:DesignHeight="950"
+             x:Class="Figurator.Views.ShapeT_UserControl">
+
+	<UserControl.Styles>
+		<Style Selector="Rectangle">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="20"/>
+		</Style>
+		<Style Selector="ComboBox">
+			<Setter Property="Width" Value="257"/>
+			<Setter Property="Height" Value="35"/>
+		</Style>
+		<Style Selector="Border.itemB">
+			<Setter Property="BorderBrush" Value="Blue"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Width" Value="202"/>
+		</Style>
+		<Style Selector="#matrix Border">
+			<Setter Property="BorderBrush" Value="Blue"/>
+			<Setter Property="BorderThickness" Value="2"/>
+			<Setter Property="Margin" Value="2"/>
+			<Setter Property="Padding" Value="8"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid Margin="16" ColumnDefinitions="4*,6*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" Classes="gr">
+		<TextBlock>Поворот фигуры: </TextBlock>
+		<Border Background="{Binding RenderTransformAngle.Color}" Grid.Column="1">
+			<TextBox Name="textBoxRenderTransformAngle" Text="{Binding RenderTransformAngle.Value}"></TextBox>
+		</Border>
+
+		<TextBlock Grid.Row="1">Центр поворота: </TextBlock>
+		<Border Background="{Binding RenderTransformCenter.Color}" Grid.Row="1" Grid.Column="1">
+			<TextBox Name="textBoxRotateCenter" Text="{Binding RenderTransformCenter.Value}"></TextBox>
+		</Border>
+
+		<TextBlock Grid.Row="2">Масштаб: </TextBlock>
+		<Border Background="{Binding ScaleTransform.Color}" Grid.Row="2" Grid.Column="1">
+			<TextBox Name="textBoxScaleTransform" Text="{Binding ScaleTransform.Value}"></TextBox>
+		</Border>
+
+		<TextBlock Grid.Row="3">Наклон: </TextBlock>
+		<Border Background="{Binding SkewTransform.Color}" Grid.Row="3" Grid.Column="1">
+			<TextBox Name="textBoxSkewTransform" Text="{Binding SkewTransform.Value}"></TextBox>
+		</Border>
+		
+		<TextBlock Grid.Row="4" Margin="0 50 0 0">Матрица для вида: </TextBlock>
+		<Grid Name="matrix" Grid.Row="4" Grid.Column="1" Margin="0 50 0 0" ColumnDefinitions="80,80" RowDefinitions="*,*,*">
+			<Border>
+				<TextBlock Text="{Binding MatrixTransform[0]}"/>
+			</Border>
+			<Border Grid.Column="1">
+				<TextBlock Text="{Binding MatrixTransform[1]}"/>
+			</Border>
+			<Border Grid.Row="1">
+				<TextBlock Text="{Binding MatrixTransform[2]}"/>
+			</Border>
+			<Border Grid.Row="1" Grid.Column="1">
+				<TextBlock Text="{Binding MatrixTransform[3]}"/>
+			</Border>
+			<Border Grid.Row="2">
+				<TextBlock Text="{Binding MatrixTransform[4]}"/>
+			</Border>
+			<Border Grid.Row="2" Grid.Column="1">
+				<TextBlock Text="{Binding MatrixTransform[5]}"/>
+			</Border>
+		</Grid>
+	</Grid>
+</UserControl>

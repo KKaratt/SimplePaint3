@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="460" d:DesignHeight="950"
+             x:Class="Figurator.Views.Shape2_UserControl">
+
+	<UserControl.Styles>
+		<Style Selector="Rectangle">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="20"/>
+		</Style>
+		<Style Selector="ComboBox">
+			<Setter Property="Width" Value="257"/>
+			<Setter Property="Height" Value="35"/>
+		</Style>
+		<Style Selector="Border.itemB">
+			<Setter Property="BorderBrush" Value="Blue"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Width" Value="202"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid Margin="16" ColumnDefinitions="4*,6*" RowDefinitions="Auto,Auto,Auto,Auto" Classes="gr">
+		<TextBlock>Имя: </TextBlock>
+		<Border Background="{Binding ShapeNameColor}" Grid.Column="1">
+			<TextBox Name="textBoxName" Text="{Binding ShapeName}"/>
+		</Border>
+
+		<TextBlock Grid.Row="1">Точки: </TextBlock>
+		<Border Background="{Binding ShapeDots.Color}" Grid.Row="1" Grid.Column="1">
+			<TextBox Name="textBoxPoints" Text="{Binding ShapeDots.Value}"/>
+		</Border>
+
+		<TextBlock Grid.Row="2">Цвет линии: </TextBlock>
+		<ComboBox Name="comboBoxColor" SelectedItem="{Binding ShapeColor}" Grid.Row="2" Grid.Column="1" SelectedIndex="0" Items="{Binding ColorsArr}">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<Border Classes="itemB">
+						<Rectangle Fill="{Binding}"/>
+					</Border>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
+
+		<TextBlock Grid.Row="3">Толщина линии: </TextBlock>
+		<NumericUpDown Name="numericUpDownStroke" Grid.Row="3" Grid.Column="1" Value="{Binding ShapeThickness}" Minimum="1" Maximum="100"/>
+	</Grid>
+</UserControl>
